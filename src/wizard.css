@@ -1,0 +1,172 @@
+#wizard-root {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 26px 24px 20px;
+}
+
+.wizard-head {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.wizard-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a84ff, #0055d4);
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.wizard-head h1 {
+  margin: 10px 0 4px;
+}
+
+.wizard-sub {
+  color: light-dark(#767676, #9d9d9d);
+  margin: 0;
+}
+
+.wizard-sub.left {
+  text-align: left;
+}
+
+.mode-cards {
+  display: flex;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.mode-card {
+  flex: 1;
+  text-align: left;
+  padding: 14px;
+  border: 2px solid light-dark(#d9d9d9, #3c3c3c);
+  border-radius: 10px;
+  background: light-dark(#ffffff, #2b2b2b);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.12s ease, transform 0.12s ease;
+}
+
+.mode-card:hover {
+  transform: translateY(-1px);
+}
+
+.mode-card.selected {
+  border-color: #0a84ff;
+  background: light-dark(#eef5ff, #17273b);
+}
+
+.mode-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.mode-desc {
+  font-size: 12px;
+  color: light-dark(#6b6b6b, #9d9d9d);
+  line-height: 1.5;
+}
+
+.mode-keys {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+kbd {
+  background: light-dark(#ececec, #3a3a3a);
+  border: 1px solid light-dark(#d0d0d0, #4a4a4a);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.hotkey-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid light-dark(#d9d9d9, #3c3c3c);
+  border-radius: 10px;
+  background: light-dark(#ffffff, #2b2b2b);
+  margin: 14px 0;
+}
+
+.hotkey-current {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.btn.primary {
+  background: #0a84ff;
+  border-color: #0a84ff;
+  color: #ffffff;
+}
+
+.btn.primary:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Button press feedback (owner request): every interactive control
+   compresses slightly while pressed. */
+.btn,
+.hbtn,
+.tab,
+.mode-card,
+.sqlite-table-item,
+#tabs .tab {
+  transition: transform 0.08s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.btn:active,
+.hbtn:active:not(:disabled),
+.tab:active,
+.sqlite-table-item:active {
+  transform: scale(0.96);
+}
+
+.mode-card:active {
+  transform: scale(0.985);
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #0873d6;
+  border-color: #0873d6;
+}
+
+.hotkey-box.recording {
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.hotkey-current {
+  transition: color 0.12s ease;
+}
+
+.hotkey-box.recording .hotkey-current {
+  color: #0a84ff;
+}
+
+.wizard-error {
+  margin-top: 10px;
+  color: #d93025;
+  font-size: 12px;
+  text-align: right;
+}

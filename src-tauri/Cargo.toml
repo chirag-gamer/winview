@@ -1,0 +1,51 @@
+[package]
+name = "winview"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2.7", features = [] }
+
+[dependencies]
+tauri = { version = "2.12", features = ["tray-icon"] }
+tauri-plugin-single-instance = "2.5"
+tauri-plugin-store = "2.5"
+tauri-plugin-opener = "2.7"
+tauri-plugin-clipboard-manager = "2.5"
+tauri-plugin-autostart = "2.7"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1.0", features = ["preserve_order", "arbitrary_precision"] }
+comrak = { version = "1.1", features = ["shortcodes"] }
+ammonia = "4.2"
+syntect = { version = "5.3", default-features = false, features = ["default-fancy", "html", "parsing"] }
+two-face = { version = "0.5", features = ["syntect-default-fancy"] }
+jsonc-parser = { version = "0.34", features = ["serde", "preserve_order"] }
+csv = "1.4"
+encoding_rs = "0.8"
+memchr = "2.8"
+regex = "1.13"
+rusqlite = { version = "0.43", default-features = false, features = ["bundled"] }
+sqlparser = "0.64"
+zip = { version = "=9.8.1", default-features = false, features = ["deflate"] }
+tar = "0.4"
+flate2 = "1.1"
+quick-xml = "0.42"
+plist = "1.10"
+ansi-to-html = "0.2"
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_Shell",
+    "Win32_UI_Shell_Common",
+    "Win32_System_Com",
+    "Win32_System_Ole",
+    "Win32_System_Variant",
+    "Win32_Storage_FileSystem",
+    "Win32_Graphics_Gdi",
+] }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

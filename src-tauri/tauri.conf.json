@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "WinView",
+  "version": "0.1.0",
+  "identifier": "com.winview.app",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "popup",
+        "title": "WinView",
+        "url": "index.html",
+        "width": 720,
+        "height": 560,
+        "minWidth": 480,
+        "minHeight": 360,
+        "decorations": false,
+        "shadow": true,
+        "skipTaskbar": true,
+        "alwaysOnTop": true,
+        "visible": false,
+        "focusable": false,
+        "focus": false,
+        "transparent": true,
+        "windowEffects": {
+          "effects": ["mica"]
+        }
+      },
+      {
+        "label": "settings",
+        "title": "WinView Settings",
+        "url": "settings.html",
+        "width": 560,
+        "height": 680,
+        "minWidth": 480,
+        "minHeight": 560,
+        "visible": false,
+        "center": true
+      },
+      {
+        "label": "wizard",
+        "title": "Welcome to WinView",
+        "url": "wizard.html",
+        "width": 580,
+        "height": 540,
+        "resizable": false,
+        "visible": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' http://winview.localhost data: blob:; media-src 'self' http://winview.localhost blob:; connect-src 'self' ipc: http://ipc.localhost; object-src 'none'; frame-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": ["icons/icon.ico"],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper",
+        "silent": true
+      }
+    }
+  }
+}

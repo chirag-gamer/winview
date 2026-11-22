@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Welcome to WinView</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/settings.css" />
+    <link rel="stylesheet" href="/src/wizard.css" />
+  </head>
+  <body class="settings-body">
+    <main id="wizard-root">
+      <div class="wizard-head">
+        <div class="wizard-logo">W</div>
+        <h1>Welcome to WinView</h1>
+        <p class="wizard-sub">Instant, offline file previews from Explorer. Press a key, see the file.</p>
+      </div>
+
+      <section id="step-mode" class="wizard-step">
+        <h2>How should previews open?</h2>
+        <div class="mode-cards">
+          <button class="mode-card" data-value="toggle">
+            <div class="mode-title">Toggle</div>
+            <div class="mode-desc">Press Space to open the preview.<br />Press Space again to close it.</div>
+            <div class="mode-keys"><kbd>Space</kbd> → <kbd>Space</kbd> ✕</div>
+          </button>
+          <button class="mode-card" data-value="hold">
+            <div class="mode-title">Hold</div>
+            <div class="mode-desc">Preview shows while you keep the key held.<br />Release it and the preview closes.</div>
+            <div class="mode-keys"><kbd>Space</kbd> ↓ hold… ↑ ✕</div>
+          </button>
+        </div>
+        <div class="wizard-nav">
+          <span></span>
+          <button class="btn primary" id="next-1" disabled>Next</button>
+        </div>
+      </section>
+
+      <section id="step-hotkey" class="wizard-step" hidden>
+        <h2>Pick your trigger key</h2>
+        <p class="wizard-sub left">The default is <b>Space</b>, like macOS Quick Look. You can change it now or later in Settings.</p>
+        <div class="hotkey-box">
+          <div class="hotkey-current" id="wizard-hotkey-label">Space</div>
+          <button class="btn" id="wizard-change-key">Change key</button>
+        </div>
+        <div class="wizard-nav">
+          <button class="btn" id="back-2">Back</button>
+          <button class="btn primary" id="finish">Start using WinView</button>
+        </div>
+        <div class="wizard-error" id="wizard-error" hidden></div>
+      </section>
+    </main>
+    <script type="module" src="/src/wizard.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WinView</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header id="header">
+      <span id="hv-badge" class="badge">?</span>
+      <span id="hv-name" class="name"></span>
+      <span id="hv-size" class="size"></span>
+      <nav id="tabs" hidden></nav>
+      <span class="spacer"></span>
+      <button id="btn-copy" class="hbtn" title="Copy">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5.5" y="5.5" width="8" height="9" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/></svg>
+        Copy
+      </button>
+      <button id="btn-open" class="hbtn" title="Open with default app">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 3H4a1.5 1.5 0 0 0-1.5 1.5v8A1.5 1.5 0 0 0 4 14h8a1.5 1.5 0 0 0 1.5-1.5V9"/><path d="M9.5 2.5H14V7"/><path d="M14 2.5 8 8.5"/></svg>
+        Open
+      </button>
+      <button id="btn-close" class="hbtn close" title="Close (Esc)">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m4 4 8 8M12 4l-8 8"/></svg>
+      </button>
+    </header>
+    <main id="content"></main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

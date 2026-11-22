@@ -1,0 +1,15 @@
+{
+  "identifier": "default",
+  "description": "Default capability for the popup, settings, and wizard windows",
+  "windows": ["popup", "settings", "wizard", "*"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-close",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:window:allow-set-focus",
+    "store:default",
+    "opener:default",
+    "clipboard-manager:default"
+  ]
+}

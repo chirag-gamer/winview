@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WinView Settings</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/settings.css" />
+  </head>
+  <body class="settings-body">
+    <main id="settings-root">
+      <h1>Settings</h1>
+
+      <section class="group">
+        <h2>General</h2>
+        <div class="card-row">
+          <div class="card-text">
+            <div class="card-label">Enable previews</div>
+            <div class="card-desc">Master switch: when off, the trigger key behaves natively.</div>
+          </div>
+          <label class="switch"><input type="checkbox" id="opt-enabled" /><span class="slider"></span></label>
+        </div>
+        <div class="card-row">
+          <div class="card-text">
+            <div class="card-label">Trigger mode</div>
+            <div class="card-desc">Toggle: press to show, press again to hide. Hold: shown only while the key is down.</div>
+          </div>
+          <div class="segmented" id="opt-mode">
+            <button data-value="toggle">Toggle</button>
+            <button data-value="hold">Hold</button>
+          </div>
+        </div>
+        <div class="card-row">
+          <div class="card-text">
+            <div class="card-label">Trigger key</div>
+            <div class="card-desc" id="hotkey-desc">Current: Space</div>
+          </div>
+          <button class="btn" id="btn-hotkey">Change…</button>
+        </div>
+        <div class="card-row">
+          <div class="card-text">
+            <div class="card-label">Start with Windows</div>
+            <div class="card-desc">Launch WinView automatically at sign-in.</div>
+          </div>
+          <label class="switch"><input type="checkbox" id="opt-autostart" /><span class="slider"></span></label>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Appearance</h2>
+        <div class="card-row">
+          <div class="card-text">
+            <div class="card-label">Popup background</div>
+            <div class="card-desc">Mica uses the Windows 11 system backdrop.</div>
+          </div>
+          <select id="opt-background">
+            <option value="mica">Mica (system)</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="custom">Custom colour…</option>
+          </select>
+        </div>
+        <div class="card-row" id="row-custom-color" hidden>
+          <div class="card-text"><div class="card-label">Custom colour</div></div>
+          <input type="color" id="opt-custom-color" value="#1f1f1f" />
+        </div>
+        <div class="card-row">
+          <div class="card-text">
+            <div class="card-label">Theme</div>
+            <div class="card-desc">Content colour scheme inside the popup.</div>
+          </div>
+          <div class="segmented" id="opt-theme">
+            <button data-value="system">System</button>
+            <button data-value="light">Light</button>
+            <button data-value="dark">Dark</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Preview categories</h2>
+        <div id="category-list"></div>
+      </section>
+
+      <footer class="settings-footer">
+        <span id="version-label">WinView</span>
+      </footer>
+    </main>
+    <script type="module" src="/src/settings.ts"></script>
+  </body>
+</html>

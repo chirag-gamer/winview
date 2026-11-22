@@ -1,0 +1,33 @@
+# Rust / Tauri
+src-tauri/target/
+src-tauri/gen/
+
+# Node / Vite
+node_modules/
+dist/
+
+# Private planning docs (only AGENTS.md is published)
+plan.md
+prd.md
+spec.md
+decisions.md
+research/
+docs/
+tutorial.md
+
+# Dev/test artifacts
+dev.log
+*.log
+branding/*-shot.png
+branding/e2e-*.png
+branding/wizard-*.png
+branding/shift-test.png
+branding/popup-shot.png
+branding/scaffold-shot.png
+
+# Local test data
+testdata/
+
+# OS junk
+Thumbs.db
+.DS_Store

@@ -1,0 +1,147 @@
+/* Settings window: single-column card layout (FR-32 pattern). */
+
+.settings-body {
+  color-scheme: light dark;
+  background: light-dark(#f6f6f6, #202020);
+}
+
+#settings-root {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 18px 20px 10px;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 4px 0 14px;
+}
+
+.group h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: light-dark(#767676, #9d9d9d);
+  margin: 14px 0 6px;
+}
+
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: light-dark(#ffffff, #2b2b2b);
+  border: 1px solid light-dark(#e3e3e3, #383838);
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-label {
+  font-weight: 600;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: light-dark(#767676, #9d9d9d);
+  margin-top: 2px;
+}
+
+/* Switch */
+.switch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  flex: none;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  border-radius: 11px;
+  background: light-dark(#c8c8c8, #555555);
+  transition: background 0.15s ease;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.15s ease;
+}
+
+.switch input:checked + .slider {
+  background: #0a84ff;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+/* Segmented control */
+.segmented {
+  display: flex;
+  border: 1px solid light-dark(#d3d3d3, #444444);
+  border-radius: 7px;
+  overflow: hidden;
+  flex: none;
+}
+
+.segmented button {
+  border: none;
+  background: transparent;
+  padding: 5px 12px;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+.segmented button + button {
+  border-left: 1px solid light-dark(#d3d3d3, #444444);
+}
+
+.segmented button.active {
+  background: #0a84ff;
+  color: #ffffff;
+}
+
+.btn {
+  border: 1px solid light-dark(#d3d3d3, #444444);
+  background: light-dark(#ffffff, #333333);
+  color: inherit;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+select,
+input[type="color"] {
+  font: inherit;
+  border-radius: 6px;
+  border: 1px solid light-dark(#d3d3d3, #444444);
+  background: light-dark(#ffffff, #333333);
+  color: inherit;
+  padding: 4px 6px;
+}
+
+.settings-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 11px;
+  color: light-dark(#9a9a9a, #7a7a7a);
+}
