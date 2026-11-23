@@ -81,7 +81,7 @@ pub fn build(path: &Path, req_id: u64, settings: &crate::settings::Settings) -> 
             if let Err(e) = f.read_exact(&mut head) {
                 return envelope(Preview::Error { message: e.to_string() });
             }
-            if is_binary(&head) && !matches!(kind, Some(crate::detection::Kind::PackageJson)) {
+            if is_binary(&head) && !owns_binary_payload(kind) {
                 return envelope(Preview::Binary { size, likely_type: likely_binary_type(path) });
             }
             // Read whole up to the limit (head bytes already read).
@@ -99,6 +99,25 @@ pub fn build(path: &Path, req_id: u64, settings: &crate::settings::Settings) -> 
         }
         Err(e) => envelope(Preview::Error { message: e.to_string() }),
     }
+}
+
+/// Kinds whose renderer reads the bytes itself: a binary sniff must not
+/// short-circuit them into the info card (SQLite, archives, media, plists).
+fn owns_binary_payload(kind: Option<crate::detection::Kind>) -> bool {
+    use crate::detection::Kind;
+    matches!(
+        kind,
+        Some(
+            Kind::PackageJson
+                | Kind::Sqlite
+                | Kind::Archive
+                | Kind::Plist
+                | Kind::Image
+                | Kind::Audio
+                | Kind::Video
+                | Kind::Pdf
+        )
+    )
 }
 
 /// Route by detected kind. Phase 4+ kinds fall back to the text preview
@@ -459,6 +478,37 @@ mod tests {
         assert_eq!(decode_text(&[0xFE, 0xFF, 0x00, 0x68]), "h"); // UTF-16 BE
         assert_eq!(decode_text(&[0x68, 0xC3, 0xA9]), "hé"); // valid UTF-8
         assert_eq!(decode_text(&[0x68, 0xE9]), "h\u{FFFD}"); // invalid → replacement
+    }
+
+    #[test]
+    fn binary_owning_kinds_skip_info_card() {
+        // Regression: the text/binary sniff used to run before dispatch and
+        // turned SQLite/zip/image files into the generic info card.
+        let dir = std::env::temp_dir().join(format!("winview-preview-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let settings = crate::settings::Settings::default();
+
+        let png = dir.join("shot.png");
+        std::fs::write(&png, b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR").unwrap();
+        assert!(matches!(build(&png, 1, &settings).preview, Preview::Media { .. }));
+
+        let db = dir.join("app.db");
+        let conn = rusqlite::Connection::open(&db).unwrap();
+        conn.execute_batch("create table t(id integer primary key, v text);")
+            .unwrap();
+        drop(conn);
+        assert!(matches!(build(&db, 2, &settings).preview, Preview::Sqlite { .. }));
+
+        let bundle = dir.join("bundle.zip");
+        let file = std::fs::File::create(&bundle).unwrap();
+        let mut zip = zip::ZipWriter::new(file);
+        zip.start_file("a.txt", zip::write::SimpleFileOptions::default())
+            .unwrap();
+        std::io::Write::write_all(&mut zip, b"hello").unwrap();
+        zip.finish().unwrap();
+        assert!(matches!(build(&bundle, 3, &settings).preview, Preview::Archive { .. }));
+
+        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]
