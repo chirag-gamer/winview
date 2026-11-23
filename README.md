@@ -1,5 +1,9 @@
 # WinView
 
+<img src="media/launch.gif" alt="WinView launch video: press Space in Explorer to preview any file" width="100%">
+
+Watch it with sound: [landscape](https://github.com/chirag-gamer/winview/releases/download/v0.1.0/winview-launch.mp4) or [vertical](https://github.com/chirag-gamer/winview/releases/download/v0.1.0/winview-launch-vertical.mp4).
+
 Press Space in Windows Explorer and get an instant, offline preview of the selected file. WinView is a Windows version of the macOS Gander app, built with Tauri 2 and Rust.
 
 ## What it does

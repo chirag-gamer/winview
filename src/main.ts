@@ -132,11 +132,29 @@ function humanSize(n: number): string {
   return `${(n / (1024 * 1024 * 1024)).toFixed(2)} GB`;
 }
 
-const BADGES: Record<string, string> = {
-  text: "TXT",
-  binary: "BIN",
-  cloud: "CLOUD",
-  error: "ERR",
+/** Fallback badge per preview kind when the file name has no known extension. */
+const KIND_BADGES: Record<string, { text: string; cls: string }> = {
+  text: { text: "TXT", cls: "kind-text" },
+  binary: { text: "BIN", cls: "kind-binary" },
+  cloud: { text: "CLOUD", cls: "kind-cloud" },
+  error: { text: "ERR", cls: "kind-error" },
+  markdown: { text: "MD", cls: "kind-md" },
+  mermaid_file: { text: "MMD", cls: "kind-mermaid" },
+  json_tree: { text: "JSON", cls: "kind-json" },
+  json_lines: { text: "JSONL", cls: "kind-json" },
+  package_json: { text: "JSON", cls: "kind-json" },
+  table: { text: "CSV", cls: "kind-csv" },
+  sqlite: { text: "SQLITE", cls: "kind-sqlite" },
+  log: { text: "LOG", cls: "kind-log" },
+  env: { text: "ENV", cls: "kind-env" },
+  sql: { text: "SQL", cls: "kind-sql" },
+  notebook: { text: "IPYNB", cls: "kind-notebook" },
+  archive: { text: "ARCHIVE", cls: "kind-archive" },
+  xml: { text: "XML", cls: "kind-xml" },
+  plist: { text: "PLIST", cls: "kind-plist" },
+  diff: { text: "DIFF", cls: "kind-diff" },
+  code: { text: "CODE", cls: "kind-code" },
+  media: { text: "FILE", cls: "kind-media" },
 };
 
 const EXT_BADGES: Array<[RegExp, string, string]> = [
@@ -155,14 +173,10 @@ const EXT_BADGES: Array<[RegExp, string, string]> = [
 ];
 
 function badgeFor(env: Envelope): { text: string; cls: string } {
-  const kind = env.preview.kind;
-  if (kind === "text") {
-    for (const [re, text, cls] of EXT_BADGES) {
-      if (re.test(env.name)) return { text, cls };
-    }
-    return { text: "TXT", cls: "kind-text" };
+  for (const [re, text, cls] of EXT_BADGES) {
+    if (re.test(env.name)) return { text, cls };
   }
-  return { text: BADGES[kind] ?? "?", cls: `kind-${kind}` };
+  return KIND_BADGES[env.preview.kind] ?? { text: "FILE", cls: "kind-binary" };
 }
 
 function ensureThemeCss(): void {
@@ -805,6 +819,15 @@ async function renderMath(root: HTMLElement): Promise<void> {
     const auto: (el: HTMLElement, opts: Record<string, unknown>) => void = (
       await import("katex/dist/contrib/auto-render.mjs")
     ) as (el: HTMLElement, opts: Record<string, unknown>) => void;
+    // comrak's math extension already emits `<span data-math-style="...">`
+    // with the TeX and no delimiters, so auto-render can't see them.
+    const katex = (await import("katex")).default;
+    root.querySelectorAll<HTMLElement>("[data-math-style]").forEach((el) => {
+      katex.render(el.textContent ?? "", el, {
+        displayMode: el.dataset["mathStyle"] === "display",
+        throwOnError: false,
+      });
+    });
     auto(root, {
       delimiters: [
         { left: "$$", right: "$$", display: true },
